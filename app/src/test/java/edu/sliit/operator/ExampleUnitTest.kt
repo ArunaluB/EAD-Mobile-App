@@ -1,4 +1,4 @@
-package edu.sliit.myapplication
+package edu.sliit.operator
 
 import org.junit.Test
 

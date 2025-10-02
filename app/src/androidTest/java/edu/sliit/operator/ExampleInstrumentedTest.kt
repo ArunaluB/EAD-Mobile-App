@@ -1,4 +1,4 @@
-package edu.sliit.myapplication
+package edu.sliit.operator
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
