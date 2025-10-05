@@ -34,88 +34,154 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createSignUpView(): View {
+        val scrollView = ScrollView(this).apply {
+            setBackgroundColor(Color.parseColor("#0A0E27")) // Deep navy
+        }
+
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(Color.parseColor(AppColors.BLACK_PRIMARY))
-            setPadding(60, 80, 60, 80)
+            setPadding(48, 60, 48, 80)
             gravity = Gravity.CENTER
         }
 
-        TextView(this).apply {
-            text = "⚡ EV HUB"
-            textSize = 42f
-            setTextColor(Color.parseColor(AppColors.GREEN_NEON))
-            gravity = Gravity.CENTER
-            setPadding(0, 0, 0, 60)
-            layout.addView(this)
-        }
-
-        TextView(this).apply {
-            text = "Create Operator Account"
-            textSize = 20f
-            setTextColor(Color.parseColor(AppColors.WHITE))
+        // Logo section
+        LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(0, 0, 0, 50)
+
+            addView(TextView(this@SignUpActivity).apply {
+                text = "⚡"
+                textSize = 80f
+                gravity = Gravity.CENTER
+                setPadding(0, 0, 0, 20)
+                setShadowLayer(30f, 0f, 0f, Color.parseColor("#00FF88"))
+            })
+
+            addView(TextView(this@SignUpActivity).apply {
+                text = "EV HUB"
+                textSize = 48f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#FFFFFF"))
+                gravity = Gravity.CENTER
+                setShadowLayer(15f, 0f, 3f, Color.parseColor("#00FF88"))
+                setPadding(0, 0, 0, 12)
+            })
+
+            addView(TextView(this@SignUpActivity).apply {
+                text = "━━━━━━━━━━━━"
+                textSize = 14f
+                setTextColor(Color.parseColor("#00D9FF"))
+                gravity = Gravity.CENTER
+                setPadding(0, 0, 0, 12)
+            })
+
+            addView(TextView(this@SignUpActivity).apply {
+                text = "Create Operator Account"
+                textSize = 18f
+                setTextColor(Color.parseColor("#00D9FF"))
+                gravity = Gravity.CENTER
+            })
+
             layout.addView(this)
         }
 
-        etUsername = EditText(this).apply {
-            hint = "Username"
-            setHintTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
-            setTextColor(Color.parseColor(AppColors.WHITE))
-            setBackgroundColor(Color.parseColor(AppColors.GRAY_DARK_PANEL))
-            setPadding(40, 40, 40, 40)
-            textSize = 16f
+        // Sign up form card
+        LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundColor(Color.parseColor("#1A1F3A"))
+            setPadding(32, 40, 32, 40)
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 30)
+            params.setMargins(0, 0, 0, 24)
             layoutParams = params
-            layout.addView(this)
-        }
 
-        etPassword = EditText(this).apply {
-            hint = "Password"
-            setHintTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
-            setTextColor(Color.parseColor(AppColors.WHITE))
-            setBackgroundColor(Color.parseColor(AppColors.GRAY_DARK_PANEL))
-            setPadding(40, 40, 40, 40)
-            textSize = 16f
-            inputType = android.text.InputType.TYPE_CLASS_TEXT or
-                    android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0, 0, 0, 30)
-            layoutParams = params
-            layout.addView(this)
-        }
+            addView(TextView(this@SignUpActivity).apply {
+                text = "✨ Register New Account"
+                textSize = 24f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#00D9FF"))
+                gravity = Gravity.CENTER
+                setPadding(0, 0, 0, 32)
+            })
 
-        etConfirmPassword = EditText(this).apply {
-            hint = "Confirm Password"
-            setHintTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
-            setTextColor(Color.parseColor(AppColors.WHITE))
-            setBackgroundColor(Color.parseColor(AppColors.GRAY_DARK_PANEL))
-            setPadding(40, 40, 40, 40)
-            textSize = 16f
-            inputType = android.text.InputType.TYPE_CLASS_TEXT or
-                    android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0, 0, 0, 30)
-            layoutParams = params
+            etUsername = EditText(this@SignUpActivity).apply {
+                hint = "👤 Choose Username"
+                setHintTextColor(Color.parseColor("#6B7A99"))
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setBackgroundColor(Color.parseColor("#0F1624"))
+                setPadding(44, 44, 44, 44)
+                textSize = 17f
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 0, 20)
+                layoutParams = params
+            }
+            addView(etUsername)
+
+            etPassword = EditText(this@SignUpActivity).apply {
+                hint = "🔒 Create Password"
+                setHintTextColor(Color.parseColor("#6B7A99"))
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setBackgroundColor(Color.parseColor("#0F1624"))
+                setPadding(44, 44, 44, 44)
+                textSize = 17f
+                inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                        android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 0, 20)
+                layoutParams = params
+            }
+            addView(etPassword)
+
+            etConfirmPassword = EditText(this@SignUpActivity).apply {
+                hint = "🔐 Confirm Password"
+                setHintTextColor(Color.parseColor("#6B7A99"))
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setBackgroundColor(Color.parseColor("#0F1624"))
+                setPadding(44, 44, 44, 44)
+                textSize = 17f
+                inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                        android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 0, 20)
+                layoutParams = params
+            }
+            addView(etConfirmPassword)
+
+            // Password requirements
+            addView(TextView(this@SignUpActivity).apply {
+                text = """
+                    📋 Password Requirements:
+                    • Minimum 6 characters
+                    • Must include letters and numbers
+                """.trimIndent()
+                textSize = 13f
+                setTextColor(Color.parseColor("#8B9DC3"))
+                setPadding(20, 0, 20, 20)
+            })
+
             layout.addView(this)
         }
 
         tvError = TextView(this).apply {
-            setTextColor(Color.parseColor(AppColors.PINK))
-            textSize = 14f
+            setTextColor(Color.parseColor("#FF3366"))
+            textSize = 15f
             visibility = View.GONE
             gravity = Gravity.CENTER
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+            setBackgroundColor(Color.parseColor("#2A1520"))
+            setPadding(20, 16, 20, 16)
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -126,29 +192,34 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         btnSignUp = Button(this).apply {
-            text = "SIGN UP"
-            textSize = 18f
-            setTextColor(Color.parseColor(AppColors.BLACK_PRIMARY))
-            setBackgroundColor(Color.parseColor(AppColors.GREEN_NEON))
+            text = "CREATE ACCOUNT"
+            textSize = 19f
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+            setTextColor(Color.parseColor("#0A0E27"))
+            setBackgroundColor(Color.parseColor("#00FF88"))
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.height = 140
-            params.setMargins(0, 0, 0, 40)
+            params.height = 160
+            params.setMargins(0, 0, 0, 24)
             layoutParams = params
+            setShadowLayer(25f, 0f, 5f, Color.parseColor("#00FF88"))
             layout.addView(this)
         }
 
         tvLogin = TextView(this).apply {
             text = "Already have an account? Login"
-            setTextColor(Color.parseColor(AppColors.BLUE))
-            textSize = 14f
+            setTextColor(Color.parseColor("#00D9FF"))
+            textSize = 15f
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
             gravity = Gravity.CENTER
+            setPadding(0, 16, 0, 16)
             layout.addView(this)
         }
 
-        return layout
+        scrollView.addView(layout)
+        return scrollView
     }
 
     private fun setupListeners() {

@@ -29,87 +29,106 @@ class DashboardFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            setBackgroundColor(Color.parseColor(AppColors.BLACK_PRIMARY))
+            setBackgroundColor(Color.parseColor("#0A0E27")) // Deep navy
         }
 
         val mainLayout = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(40, 40, 40, 40)
+            setPadding(24, 24, 24, 24)
         }
 
-        mainLayout.addView(createHeader())
-        mainLayout.addView(createWelcomeCard())
-        mainLayout.addView(createStatsSection())
-        mainLayout.addView(createScheduleSection())
+        mainLayout.addView(createModernHeader())
+        mainLayout.addView(createModernWelcomeCard())
+        mainLayout.addView(createModernStatsSection())
+        mainLayout.addView(createModernScheduleSection())
 
         scrollView.addView(mainLayout)
         return scrollView
     }
 
-    private fun createHeader(): TextView {
-        return TextView(requireContext()).apply {
-            text = "⚡ Dashboard"
-            textSize = 28f
-            setTextColor(Color.parseColor(AppColors.WHITE))
+    private fun createModernHeader(): LinearLayout {
+        return LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 40)
+            params.setMargins(0, 0, 0, 28)
             layoutParams = params
+
+            addView(TextView(requireContext()).apply {
+                text = "⚡"
+                textSize = 40f
+                setPadding(0, 0, 16, 0)
+                setShadowLayer(20f, 0f, 0f, Color.parseColor("#00FF88"))
+            })
+
+            addView(TextView(requireContext()).apply {
+                text = "Dashboard"
+                textSize = 32f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setShadowLayer(10f, 0f, 2f, Color.parseColor("#000000"))
+            })
         }
     }
 
-    private fun createWelcomeCard(): LinearLayout {
+    private fun createModernWelcomeCard(): LinearLayout {
         val username = requireActivity()
             .getSharedPreferences("EVHubPrefs", Context.MODE_PRIVATE)
             .getString("username", "Operator") ?: "Operator"
 
         return LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(Color.parseColor(AppColors.GRAY_DARK_PANEL))
-            setPadding(40, 40, 40, 40)
+            setBackgroundColor(Color.parseColor("#1A1F3A"))
+            setPadding(32, 32, 32, 32)
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 30)
+            params.setMargins(0, 0, 0, 24)
             layoutParams = params
 
             addView(TextView(requireContext()).apply {
-                text = "Welcome back, $username!"
+                text = "👋 Welcome Back!"
+                textSize = 24f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#00D9FF"))
+                setPadding(0, 0, 0, 12)
+            })
+
+            addView(TextView(requireContext()).apply {
+                text = username
                 textSize = 20f
-                setTextColor(Color.parseColor(AppColors.GREEN_NEON))
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setPadding(0, 0, 0, 12)
             })
 
             addView(TextView(requireContext()).apply {
                 text = "Ready to manage your charging stations"
-                textSize = 14f
-                setTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
-                val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.setMargins(0, 10, 0, 0)
-                layoutParams = params
+                textSize = 15f
+                setTextColor(Color.parseColor("#8B9DC3"))
             })
         }
     }
 
-    private fun createStatsSection(): LinearLayout {
+    private fun createModernStatsSection(): LinearLayout {
         return LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 30)
+            params.setMargins(0, 0, 0, 28)
             layoutParams = params
 
             addView(TextView(requireContext()).apply {
-                text = "Today's Overview"
-                textSize = 18f
-                setTextColor(Color.parseColor(AppColors.WHITE))
+                text = "📊 Today's Overview"
+                textSize = 22f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#FFFFFF"))
                 val params = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -120,64 +139,75 @@ class DashboardFragment : Fragment() {
 
             val statsRow = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 0, 12)
+                layoutParams = params
             }
-            statsRow.addView(createStatCard("8", "Upcoming", AppColors.BLUE))
-            statsRow.addView(createStatCard("3", "Pending", AppColors.PINK))
+            statsRow.addView(createModernStatCard("8", "Upcoming", "#00D9FF", "🔜"))
+            statsRow.addView(createModernStatCard("3", "Pending", "#FF3366", "⏳"))
             addView(statsRow)
 
             val statsRow2 = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
             }
-            statsRow2.addView(createStatCard("12", "Completed", AppColors.GREEN_BRIGHT))
-            statsRow2.addView(createStatCard("85%", "Utilization", AppColors.PURPLE))
+            statsRow2.addView(createModernStatCard("12", "Completed", "#00FF88", "✅"))
+            statsRow2.addView(createModernStatCard("85%", "Utilization", "#7B2CBF", "📈"))
             addView(statsRow2)
         }
     }
 
-    private fun createStatCard(value: String, label: String, color: String): LinearLayout {
+    private fun createModernStatCard(value: String, label: String, color: String, icon: String): LinearLayout {
         return LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(Color.parseColor(AppColors.BLACK_OVERLAY))
-            setPadding(30, 30, 30, 30)
+            setBackgroundColor(Color.parseColor("#16213E"))
+            setPadding(24, 28, 24, 28)
             gravity = Gravity.CENTER
             val params = LinearLayout.LayoutParams(
                 0,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1f
             )
-            params.setMargins(5, 5, 5, 5)
+            params.setMargins(6, 6, 6, 6)
             layoutParams = params
 
             addView(TextView(requireContext()).apply {
+                text = icon
+                textSize = 36f
+                gravity = Gravity.CENTER
+                setPadding(0, 0, 0, 12)
+            })
+
+            addView(TextView(requireContext()).apply {
                 text = value
-                textSize = 32f
+                textSize = 36f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 setTextColor(Color.parseColor(color))
                 gravity = Gravity.CENTER
+                setShadowLayer(15f, 0f, 0f, Color.parseColor(color))
+                setPadding(0, 0, 0, 8)
             })
 
             addView(TextView(requireContext()).apply {
                 text = label
-                textSize = 12f
-                setTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
+                textSize = 13f
+                setTextColor(Color.parseColor("#8B9DC3"))
                 gravity = Gravity.CENTER
-                val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                params.setMargins(0, 10, 0, 0)
-                layoutParams = params
             })
         }
     }
 
-    private fun createScheduleSection(): LinearLayout {
+    private fun createModernScheduleSection(): LinearLayout {
         return LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
 
             addView(TextView(requireContext()).apply {
-                text = "Next 4 Hours"
-                textSize = 18f
-                setTextColor(Color.parseColor(AppColors.WHITE))
+                text = "🕐 Next 4 Hours"
+                textSize = 22f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#FFFFFF"))
                 val params = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -186,72 +216,68 @@ class DashboardFragment : Fragment() {
                 layoutParams = params
             })
 
-            addView(createBookingItem("10:00 AM", "Station A - Slot 1", "John Doe", "Approved"))
-            addView(createBookingItem("11:30 AM", "Station B - Slot 2", "Jane Smith", "Pending"))
-            addView(createBookingItem("01:00 PM", "Station A - Slot 3", "Mike Johnson", "Approved"))
+            addView(createModernBookingItem("10:00 AM", "Station A - Slot 1", "John Doe", "Approved"))
+            addView(createModernBookingItem("11:30 AM", "Station B - Slot 2", "Jane Smith", "Pending"))
+            addView(createModernBookingItem("01:00 PM", "Station A - Slot 3", "Mike Johnson", "Approved"))
         }
     }
 
-    private fun createBookingItem(time: String, station: String, name: String, status: String): LinearLayout {
+    private fun createModernBookingItem(time: String, station: String, name: String, status: String): LinearLayout {
         return LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setBackgroundColor(Color.parseColor(AppColors.GRAY_DARK_PANEL))
-            setPadding(30, 30, 30, 30)
+            orientation = LinearLayout.VERTICAL
+            setBackgroundColor(Color.parseColor("#1A1F3A"))
+            setPadding(24, 24, 24, 24)
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 15)
+            params.setMargins(0, 0, 0, 12)
             layoutParams = params
 
-            addView(TextView(requireContext()).apply {
-                text = time
-                textSize = 14f
-                setTextColor(Color.parseColor(AppColors.GREEN_NEON))
-                val params = LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f
-                )
-                layoutParams = params
-            })
-
-            val detailsLayout = LinearLayout(requireContext()).apply {
-                orientation = LinearLayout.VERTICAL
-                val params = LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    2f
-                )
-                layoutParams = params
+            // Time and status row
+            val topRow = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(0, 0, 0, 12)
             }
 
-            detailsLayout.addView(TextView(requireContext()).apply {
-                text = station
-                textSize = 14f
-                setTextColor(Color.parseColor(AppColors.WHITE))
-            })
-
-            detailsLayout.addView(TextView(requireContext()).apply {
-                text = name
-                textSize = 12f
-                setTextColor(Color.parseColor(AppColors.GRAY_MEDIUM))
-            })
-
-            addView(detailsLayout)
-
-            addView(TextView(requireContext()).apply {
-                text = status
-                textSize = 12f
-                val statusColor = if (status == "Approved") AppColors.GREEN_BRIGHT else AppColors.PINK
-                setTextColor(Color.parseColor(statusColor))
-                gravity = Gravity.END
+            topRow.addView(TextView(requireContext()).apply {
+                text = "⏰ $time"
+                textSize = 16f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor("#00D9FF"))
                 val params = LinearLayout.LayoutParams(
                     0,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     1f
                 )
                 layoutParams = params
+            })
+
+            val statusColor = if (status == "Approved") "#00FF88" else "#FF3366"
+            val statusIcon = if (status == "Approved") "✅" else "⏳"
+            topRow.addView(TextView(requireContext()).apply {
+                text = "$statusIcon $status"
+                textSize = 14f
+                typeface = android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(Color.parseColor(statusColor))
+                gravity = Gravity.END
+            })
+
+            addView(topRow)
+
+            // Station info
+            addView(TextView(requireContext()).apply {
+                text = "🏢 $station"
+                textSize = 15f
+                setTextColor(Color.parseColor("#FFFFFF"))
+                setPadding(0, 0, 0, 8)
+            })
+
+            // Customer name
+            addView(TextView(requireContext()).apply {
+                text = "👤 $name"
+                textSize = 14f
+                setTextColor(Color.parseColor("#8B9DC3"))
             })
         }
     }

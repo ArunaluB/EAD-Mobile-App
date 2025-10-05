@@ -15,6 +15,7 @@ import edu.sliit.operator.fragments.BookingsFragment
 import edu.sliit.operator.fragments.DashboardFragment
 import edu.sliit.operator.fragments.ProfileFragment
 import edu.sliit.operator.fragments.QRScannerFragment
+import edu.sliit.operator.fragments.StationsFragment
 import edu.sliit.operator.utils.AppColors
 
 class MainActivity : AppCompatActivity() {
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         // Add navigation items
         addNavigationItem(navLayout, "🏠", "Dashboard", 0)
-        addNavigationItem(navLayout, "📋", "Bookings", 1)
+        addNavigationItem(navLayout, "🏢", "Stations", 1)
         addNavigationItem(navLayout, "📷", "QR Scan", 2)
         addNavigationItem(navLayout, "👤", "Profile", 3)
 
@@ -167,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragment = when (index) {
             0 -> DashboardFragment()
-            1 -> BookingsFragment()
+            1 -> StationsFragment()
             2 -> QRScannerFragment()
             3 -> ProfileFragment()
             else -> DashboardFragment()
